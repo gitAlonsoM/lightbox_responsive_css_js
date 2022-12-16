@@ -1,0 +1,124 @@
+*{
+    box-sizing: border-box;
+}
+
+:root{font-size: 16px; } /* usado para la medidas rem */
+
+body{
+    margin:0;
+    padding: 0;
+}
+
+
+.container{
+    background-color: rgba(252, 242, 242, 0.99) ;
+    display: flex;
+    flex-flow: row wrap;   /* row para respetar el orden creado desde los div en html y wrap para que se acomoden*/
+    /* width: 100%; */
+    margin: auto;
+}
+
+.column img{
+    width: 100%;
+}
+
+
+.frame{
+    border: solid 0.2rem rgb(216, 212, 212);
+    background-color: rgb(240, 233, 233);
+    margin-top: 1rem; 
+}
+
+
+.column{
+    padding: 0.5rem;   
+    font-size: 1.2rem;
+    font-family: 'Times New Roman', Times, serif;
+    flex: 25%; /* 25% se crean 4 columnas */
+}
+
+
+.lightbox{ /* contenedor de la imagen */
+    position: fixed; /* fixed usado para fijar la imagen una vez abierta y no se mueva al scrollear  */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(68, 66, 66, 0.5); /* al abrir la imagen queda este color de fondo */
+    /* z-index: 2; */   
+    
+    display: flex; /* alineando la imagen al centro */
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+
+    /* Efectos visuales al abrir la imagen*/
+    opacity: 0;  /*opacity en 0 para que quede invisible, al agregarle la clase activo, se sobreescribe y queda en 1 */
+    pointer-events: none; /* usado para poder interactuar con los elementos que estan debajo del lightbox, ya que aunque el opacity esta en 0, sigue estando ahi y no deja interactuar con las imagenes*/
+    transform:scale(1.3); 
+    transition: all .5s ease;
+
+    /* display: none; */ /* hubiese bastado con tener display-none en lightbox y display-flex en activo. pero queda sin efectos visuales*/
+}
+
+.lightbox.active{
+    /* display: flex; */
+    pointer-events: auto; /* al hacer click, ahora si se puede interactuar con el lightbox, mas que nada interesa el boton cerrar */
+    opacity: 1;  /* al agregarse la clase activo, el opacity muestra el lightbox */
+    transform:scale(1);  
+}
+
+.lightbox .big{ /* clase de la imagen abierta*/
+    width: auto;
+    height: 92vh;
+    border-radius: 3%;
+}
+
+.lightbox .close{
+    width: 3.5rem;
+    height: 2rem;
+    background-color: white;
+    margin: 1rem;
+    border-radius: 40%;
+    cursor: pointer;
+    border: none;
+    box-shadow: 5px 5px 15px 5px rgb(30, 31, 31);
+
+}
+
+.lightbox .close:hover{
+    transition: all 1000ms;/* agrega lentitud */
+    font-size: 0.9rem;
+}
+
+
+
+@media (max-width: 1000px){  /* de los 1000px hacia abajo */  
+    .column{
+        flex: 33%;  /* pasara de 4 column a 3 */
+    }   
+}
+
+
+@media (max-width: 800px){  
+    .column{
+        flex: 50%;  /* pasara de 3 column a 2 */
+    }   
+}
+
+
+@media (max-width: 600px){
+    .column{
+        flex: 100%;  /* pasara de 2 column a solo 1 */
+    }  
+}
+
+
+@media (max-width: 850px){ 
+    .lightbox .big{
+        width: 96%;
+        height: auto;     
+    }
+}
+
+
